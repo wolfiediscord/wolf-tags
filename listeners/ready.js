@@ -11,6 +11,6 @@ module.exports = class ReadyListener extends Listener {
 	run(client) {
 		const { username, id } = client.user;
 		this.container.logger.info(`Ready! Logged in as ${username} (${id})`);
-		this.container.client.user.setActivity("Hello world!");
+		client.user.setActivity("Hello world!");
 	}
 };
