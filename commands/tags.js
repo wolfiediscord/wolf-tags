@@ -1,19 +1,20 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
 
-module.exports = class ListTagCommand extends Command {
+module.exports = class TagsCommand extends Command {
 	registerApplicationCommands(registry) {
 		registry.registerChatInputCommand(
 		{
-			name: 'listtags',
+			name: 'tags',
 			description: 'Lists all of the tags on the server.',
 		}, {
-			guildIds: ['686289422227865609']
+			guildIds: []
 		}
 		);
 	};
 
 	async chatInputRun(interaction) {
+		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		// super complicated stuff just to make an array of the tags so we can manage them easier.
 		let taglistEmbed = {
 			title: `Current Tags in ${interaction.guild.name}`

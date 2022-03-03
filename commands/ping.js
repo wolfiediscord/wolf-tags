@@ -8,7 +8,7 @@ module.exports = class PingCommand extends Command {
 			name: 'ping',
 			description: 'Tells you the bot latency.'
 		}, {
-			guildIds: ['686289422227865609']
+			guildIds: []
 		}
 		);
 	};
