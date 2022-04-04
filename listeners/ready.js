@@ -11,6 +11,5 @@ module.exports = class ReadyListener extends Listener {
 	run(client) {
 		const { username, id } = client.user;
 		this.container.logger.info(`Ready! Logged in as ${username} (${id})`);
-		client.user.setActivity("wolf-tags.glitch.me");
 	}
 };
