@@ -1,4 +1,3 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
 

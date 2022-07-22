@@ -1,4 +1,3 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
 
 module.exports = class TagInfoCommand extends Command {
