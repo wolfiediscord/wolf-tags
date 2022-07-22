@@ -13,6 +13,12 @@ module.exports = class TagCommand extends Command {
 					description: "Title of the tag to view.",
 					type: "STRING",
 					required: true
+				},
+				{
+					name: "mention",
+					description: "User to mention.",
+					type: "USER",
+					required: false
 				}
 			]
 		}, {
@@ -50,6 +56,11 @@ module.exports = class TagCommand extends Command {
 			}
 		});
 		if(!tagtoView) return interaction.reply({content: "<:wolfx:695361329803821086> The tag you specified does not exist. Create it with /createtag!", ephemeral: true});
+		const mentionedUser = interaction.options.getUser("mention");
+		if(mentionedUser) {
+			await interaction.reply({content: `${mentionedUser}`});
+			return interaction.channel.send({content: `${tagtoView.content}`, allowedMentions: {parse: []}});
+		}
 		return interaction.reply({content: `${tagtoView.content}`, allowedMentions: {parse: []}});
 
 	};

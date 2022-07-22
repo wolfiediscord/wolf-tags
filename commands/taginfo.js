@@ -67,7 +67,7 @@ module.exports = class TagInfoCommand extends Command {
 					inline: true
 				}, {
 					name: "Content",
-					value: `${tagtoView.content}`,
+					value: `\`\`\`${tagtoView.content}\`\`\``,
 					inline: false
 				}
 			],
