@@ -6,7 +6,7 @@ module.exports = class TagsCommand extends Command {
 		{
 			name: 'tags',
 			description: 'Lists all of the tags on the server.',
-			dmPermissions: false,
+			dmPermission: false,
 		}, {
 			guildIds: []
 		}
