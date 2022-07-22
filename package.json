@@ -1,6 +1,6 @@
 {
   "name": "wolf-tags",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A discord bot that allows you to make tags.",
   "main": "bot.js",
   "scripts": {
