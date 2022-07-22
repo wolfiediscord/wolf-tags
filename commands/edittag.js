@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
+const { Modal, TextInputComponent, MessageActionRow } = require('discord.js');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = class EditTagCommand extends Command {
 	registerApplicationCommands(registry) {
@@ -13,11 +14,6 @@ module.exports = class EditTagCommand extends Command {
 					description: "Title of the tag you want to edit.",
 					type: "STRING",
 					required: true
-				}, {
-					name: "content",
-					description: "The new content of the tag.",
-					type: "STRING",
-					required: true
 				}
 			]
 		}, {
@@ -29,7 +25,6 @@ module.exports = class EditTagCommand extends Command {
 	async chatInputRun(interaction) {
 		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		const title = interaction.options.getString('title');
-		const content = interaction.options.getString('content');
 		// check for spaces in title
 		if (/\s/.test(title)) {
 			return interaction.reply({content: "<:wolfx:695361329803821086> Invalid title. Do not put spaces in your title.", ephemeral: true });
@@ -67,16 +62,34 @@ module.exports = class EditTagCommand extends Command {
 		});
 		// permission check
 		if(tagtoEdit.owner_id !== interaction.user.id) return interaction.reply({content: `<:wolfx:695361329803821086> You do not have permission to modify this tag.`, ephemeral: true });
-
-		// now we can finally edit the tag
-		try {
-			await this.container.client.db.collection(`${interaction.guildId}`).doc(`${tagtoEdit.id}`).update({
-				content: `${content}`
-			});
-			return interaction.reply({ content: `<:wolfcheckmark:695361282219442286> Tag \`${title}\` successfully modified!`});
-		} catch(err) {
-			this.container.logger.error(err);
-			return interaction.reply({ content: `<:wolfx:695361329803821086> An error occured! Please report this to the developers: ${err}`, ephemeral: true });
-		}
+		const id = uuidv4();
+		const editModal = new Modal()
+			.setCustomId(id)
+			.setTitle(`Edit Tag "${title}"`)
+		const contentInput = new TextInputComponent()
+			.setCustomId("content")
+			.setLabel("New Content")
+			.setPlaceholder("You have 5 minutes before submitting is cancelled.")
+			.setStyle("PARAGRAPH")
+			.setRequired(true);
+		const contentAR = new MessageActionRow().addComponents([contentInput]);
+		editModal.addComponents([contentAR]);
+		await interaction.showModal(editModal);
+		const filter = (modal) => modal.customId = id;
+		interaction.awaitModalSubmit({ filter, time: 300000 })
+			.then(async modal => {
+				// now we can finally edit the tag
+				const content = modal.fields.getTextInputValue("content")
+                		try {
+                        		await this.container.client.db.collection(`${modal.guildId}`).doc(`${tagtoEdit.id}`).update({
+                                	content: `${content}`
+                        		});
+                        		return modal.reply({ content: `<:wolfcheckmark:695361282219442286> Tag \`${title}\` successfully modified!`});
+                		} catch(err) {
+                        		this.container.logger.error(err);
+                        		return modal.reply({ content: `<:wolfx:695361329803821086> An error occured! Please report this to the developers: ${err}`, ephemeral: true });
+                }
+			})
+			.catch()
 	};
 };
