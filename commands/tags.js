@@ -6,6 +6,7 @@ module.exports = class TagsCommand extends Command {
 		{
 			name: 'tags',
 			description: 'Lists all of the tags on the server.',
+			dmPermissions: false,
 		}, {
 			guildIds: []
 		}
@@ -13,7 +14,6 @@ module.exports = class TagsCommand extends Command {
 	};
 
 	async chatInputRun(interaction) {
-		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		// super complicated stuff just to make an array of the tags so we can manage them easier.
 		let taglistEmbed = {
 			title: `Current Tags in ${interaction.guild.name}`

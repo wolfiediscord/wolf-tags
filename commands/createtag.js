@@ -8,6 +8,7 @@ module.exports = class CreateTagCommand extends Command {
 		{
 			name: 'createtag',
 			description: 'Creates a tag.',
+			dmPermission: false
 		}, {
 			guildIds: []
 		}
@@ -15,7 +16,6 @@ module.exports = class CreateTagCommand extends Command {
 	};
 
 	async chatInputRun(interaction) {
-		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		// creating a nice form modal for the creation of tags	
 		// UUID is required for ensuring that multiple users can run it at once
 		const id = uuidv4();

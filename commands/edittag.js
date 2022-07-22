@@ -8,6 +8,7 @@ module.exports = class EditTagCommand extends Command {
 		{
 			name: 'edittag',
 			description: 'Edits a tag. You must own the tag in order to edit it.',
+			dmPermission: false,
 			options: [
 				{
 					name: "title",
@@ -23,7 +24,6 @@ module.exports = class EditTagCommand extends Command {
 	};
 
 	async chatInputRun(interaction) {
-		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		const title = interaction.options.getString('title');
 		// check for spaces in title
 		if (/\s/.test(title)) {

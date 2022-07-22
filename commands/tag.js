@@ -6,6 +6,7 @@ module.exports = class TagCommand extends Command {
 		{
 			name: 'tag',
 			description: 'Views a tag.',
+			dmPermission: false,
 			options: [
 				{
 					name: "title",
@@ -27,7 +28,6 @@ module.exports = class TagCommand extends Command {
 	};
 
 	async chatInputRun(interaction) {
-		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		const title = interaction.options.getString('title');
 		// check for spaces in title
 		if (/\s/.test(title)) {

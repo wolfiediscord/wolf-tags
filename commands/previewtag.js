@@ -6,6 +6,7 @@ module.exports = class PreviewTagCommand extends Command {
 		{
 			name: 'previewtag',
 			description: 'Views a tag without showing everyone.',
+			dmPermission: false,
 			options: [
 				{
 					name: "title",
@@ -21,7 +22,6 @@ module.exports = class PreviewTagCommand extends Command {
 	};
 
 	async chatInputRun(interaction) {
-		if(!interaction.guild) return interaction.reply({content: "<:wolfx:695361329803821086> This bot must be used within a server.", ephemeral: true});
 		const title = interaction.options.getString('title');
 		// check for spaces in title
 		if (/\s/.test(title)) {
