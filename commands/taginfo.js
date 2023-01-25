@@ -1,4 +1,5 @@
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
+const { ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class TagInfoCommand extends Command {
 	registerApplicationCommands(registry) {
@@ -11,7 +12,7 @@ module.exports = class TagInfoCommand extends Command {
 				{
 					name: "title",
 					description: "Title of the tag to view.",
-					type: "STRING",
+					type: ApplicationCommandOptionType.String,
 					required: true
 				}
 			]

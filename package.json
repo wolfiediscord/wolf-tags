@@ -1,6 +1,6 @@
 {
   "name": "wolf-tags",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "A discord bot that allows you to make tags.",
   "main": "bot.js",
   "scripts": {
@@ -9,11 +9,11 @@
   "author": "wolfiediscord",
   "license": "MIT",
   "dependencies": {
-    "@sapphire/framework": "^3.0.0-next.72b48bb.0",
-    "@sapphire/plugin-logger": "^2.1.3",
-    "discord.js": "^13.9.0",
-    "dotenv": "^16.0.1",
-    "firebase-admin": "^11.0.0",
-    "uuid": "^8.3.2"
+    "@sapphire/framework": "^4.0.2",
+    "@sapphire/plugin-logger": "^3.0.1",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^11.5.0",
+    "uuid": "^9.0.0"
   }
 }
