@@ -1,4 +1,4 @@
-const { Permissions } = require('discord.js');
+const { PermissionsBitField, ApplicationCommandOptionType } = require('discord.js');
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
 
 module.exports = class DeleteTagCommand extends Command {
@@ -12,7 +12,7 @@ module.exports = class DeleteTagCommand extends Command {
 				{
 					name: "title",
 					description: "Title of the tag to delete.",
-					type: "STRING",
+					type: ApplicationCommandOptionType.String,
 					required: true
 				}
 			]
@@ -59,7 +59,7 @@ module.exports = class DeleteTagCommand extends Command {
 			}
 		});
 		// permission check
-		if(interaction.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+		if(interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
 			try {
 			await this.container.client.db.collection(`${interaction.guildId}`).doc(tagtoDelete.id).delete();
 			return interaction.reply({ content: `<:wolfcheckmark:695361282219442286> Tag \`${title}\` successfully deleted!`});

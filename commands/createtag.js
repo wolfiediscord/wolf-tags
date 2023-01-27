@@ -1,5 +1,5 @@
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
-const { Modal, TextInputComponent, MessageActionRow } = require('discord.js');
+const { ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = class CreateTagCommand extends Command {
@@ -19,23 +19,23 @@ module.exports = class CreateTagCommand extends Command {
 		// creating a nice form modal for the creation of tags	
 		// UUID is required for ensuring that multiple users can run it at once
 		const id = uuidv4();
-		const creationModal = new Modal()
+		const creationModal = new ModalBuilder()
 			.setCustomId(id)
 			.setTitle("Create Tag");
-		const titleInput = new TextInputComponent()
+		const titleInput = new TextInputBuilder()
 			.setCustomId("title")
 			.setLabel("Title (do not use spaces)")
-			.setStyle("SHORT")
+			.setStyle(TextInputStyle.Short)
 			.setPlaceholder("Title of tag")
 			.setRequired(true);
-		const contentInput = new TextInputComponent()
+		const contentInput = new TextInputBuilder()
 			.setCustomId("content")
 			.setLabel("Content")
-			.setStyle("PARAGRAPH")
+			.setStyle(TextInputStyle.Paragraph)
 			.setPlaceholder("You have 5 minutes before submitting is cancelled.")
 			.setRequired(true);
-		const titleAR = new MessageActionRow().addComponents([titleInput]);
-		const contentAR = new MessageActionRow().addComponents([contentInput]);
+		const titleAR = new ActionRowBuilder().addComponents([titleInput]);
+		const contentAR = new ActionRowBuilder().addComponents([contentInput]);
 		creationModal.addComponents([titleAR, contentAR]);
 		await interaction.showModal(creationModal)
 		// this waits for the user to submit 

@@ -1,5 +1,5 @@
 const { ApplicationCommandRegistry, Command } = require('@sapphire/framework');
-const { Modal, TextInputComponent, MessageActionRow } = require('discord.js');
+const { ApplicationCommandOptionType, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = class EditTagCommand extends Command {
@@ -13,7 +13,7 @@ module.exports = class EditTagCommand extends Command {
 				{
 					name: "title",
 					description: "Title of the tag you want to edit.",
-					type: "STRING",
+					type: ApplicationCommandOptionType.String,
 					required: true
 				}
 			]
@@ -63,16 +63,16 @@ module.exports = class EditTagCommand extends Command {
 		// permission check
 		if(tagtoEdit.owner_id !== interaction.user.id) return interaction.reply({content: `<:wolfx:695361329803821086> You do not have permission to modify this tag.`, ephemeral: true });
 		const id = uuidv4();
-		const editModal = new Modal()
+		const editModal = new ModalBuilder()
 			.setCustomId(id)
 			.setTitle(`Edit Tag "${title}"`)
-		const contentInput = new TextInputComponent()
+		const contentInput = new TextInputBuilder()
 			.setCustomId("content")
 			.setLabel("New Content")
 			.setPlaceholder("You have 5 minutes before submitting is cancelled.")
-			.setStyle("PARAGRAPH")
+			.setStyle(TextInputStyle.Paragraph)
 			.setRequired(true);
-		const contentAR = new MessageActionRow().addComponents([contentInput]);
+		const contentAR = new ActionRowBuilder().addComponents([contentInput]);
 		editModal.addComponents([contentAR]);
 		await interaction.showModal(editModal);
 		const filter = (modal) => modal.customId = id;
