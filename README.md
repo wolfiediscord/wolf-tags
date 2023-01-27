@@ -16,5 +16,20 @@ TOKEN="NEWOInewoginweawegfoiwa.WEIOEWFthisIOPjeoiisAjgewagewafakeSAtoken"
 
 Finally, you can run `node bot.js` to start the bot. The logging level is set to debug by default. 
 
+# Podman Installation
+Podman is a daemonless container engine for developing, managing, and running OCI Containers on your Linux System. Containers can either be run as root or in rootless mode. 
+
+Follow the regular instructions until you are about to start the bot.
+
+Use this command to build the image:
+```
+podman build -t wolf-tags .
+```
+
+Use this command to run the container:
+```
+podman run --name <name of your choosing> wolf-tags
+```
+
 # License
 Wolf Tags is licensed under the MIT license. See the LICENSE file for more information. 
